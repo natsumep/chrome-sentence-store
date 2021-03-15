@@ -1,0 +1,28 @@
+{
+  "name": "sentence store",
+  "description": "sentence store，can add can show can like",
+  "version": "1.0",
+  "manifest_version": 2,
+  "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_icon": "logo.png"
+  },
+  "author":"pp",
+  "background": {
+    "scripts": ["index.js"],
+    "persistent": false
+  },
+  "permissions": [
+    "contextMenus"
+  ],
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "MacCtrl+Shift+L"
+      },
+      "description": "Opens index.html"
+    }
+  }
+}
