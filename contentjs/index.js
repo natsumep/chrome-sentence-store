@@ -1,13 +1,13 @@
 
 let token = "";
 let audio = false;;
-let play = true;
+let play = false;
 let caihong = false;
 async function initData () {
   token = getToken && await getToken() || "";
-  audio = getAudio && await getAudio() || true;;
+  audio = getAudio && await getAudio() || false;;
   play = getPlay && await getPlay() || false;
-  caihong = getCaihong  && await getCaihong() || false;
+  caihong = getCaihong && await getCaihong() || false;
 }
 let datainfo = {};
 const height = $(window).height();
@@ -25,7 +25,7 @@ function setSentenceVal (data, status) {
   $("._sentence-body").text(content);
   const authors = author ? `${author} · ${source}` : source;
   if (audio) {
-    speck(content + " 来自：" + authors)
+    speck(content +( authors && " 来自：" + authors||""))
   }
   $("._sentence-author").text(authors);
 }
@@ -58,12 +58,12 @@ function changeCollceIcon (isCollce) {
   $("#_sentenceIconCollce").html(src).attr("data-val", isCollce ? 1 : "")
 }
 
-function getUrl(){
+function getUrl () {
   let url = `https://www.tinker.run/api/`;
-  if(caihong){
-    url +='caihong/'
-  }else{
-    url +='sentence/'
+  if (caihong) {
+    url += 'caihong/'
+  } else {
+    url += 'sentence/'
   }
   return url;
 }
@@ -72,7 +72,7 @@ function like () {
   const id = datainfo.id;
   const isLike = $("#_sentenceIconLike").attr("data-val");
   if (isLike && !token || !id) return;
-  $.ajax( getUrl()+`${isLike ? 'unlike' : 'like'}/` + id, {
+  $.ajax(getUrl() + `${isLike ? 'unlike' : 'like'}/` + id, {
     type: "post",
     headers: {
       'authorization': 'Bearer ' + token,
@@ -84,11 +84,11 @@ function like () {
 function collce () {
   const id = datainfo.id;
   const isCollce = $("#_sentenceIconCollce").attr("data-val");
-  if(!token){
-    layer.msg("请点击右上角句子杂货铺登录再收藏哟~ 么么哒~")
+  if (!token) {
+    layer.msg("请点击右上角句子杂货铺登录后才可以收藏哟~ 么么哒~")
   }
-  if (!id ) return
-  $.ajax(getUrl()+`${isCollce ? 'uncollect' : 'collect'}/` + id, {
+  if (!id) return
+  $.ajax(getUrl() + `${isCollce ? 'uncollect' : 'collect'}/` + id, {
     type: "post",
     headers: {
       'authorization': 'Bearer ' + token,
@@ -103,10 +103,12 @@ function changeClick () {
   $(document).off('click', changeClick)
 }
 function changeUi () {
-  if (play) {
+  if (!play) {
     $("._sentence-content").hide();
+    clearTimer();
   } else {
     $("._sentence-content").show();
+    initTimer();
   }
 }
 function initAudio () {
@@ -146,30 +148,32 @@ function initEvent () {
       sendResponse(true);
 
     } else if (type === 'audio') {
-      this.audio = value;
+      audio = value;
       initAudio();
       sendResponse(true);
 
     } else if (type === 'play') {
-      this.play = value;
+      play = value;
       changeUi();
       sendResponse(true);
 
-    } else if (type === 'caihong'){
-
+    } else if (type === 'caihong') {
+      caihong = value;
+      sendResponse(true);
     }
   })
 
-  // document.addEventListener('visibilitychange',async function(e){ //浏览器切换事件
-    // console.log(e , document.visibilityState)
-    // if(document.visibilityState!=='visible') { //状态判断
-    //   await initData();
-    //   initDom();
-    //   initAudio();
-    //   refresh();
-    //   initTimer();
-    // }
-// });
+  document.addEventListener('visibilitychange',async function(e){ //浏览器切换事件
+  console.log(e , document.visibilityState)
+  if(document.visibilityState!=='visible') { //状态判断
+    await initData();
+    initAudio();
+    changeUi();
+    initTimer();
+  }else{
+    clearTimer();
+  }
+  });
 
 
 }
@@ -195,8 +199,8 @@ function initTimer () {
 
 function initDom () {
   const dom = $("._sentence-content");
-  if(dom.length){
-    dom.remove &&  dom.remove();
+  if (dom.length) {
+    dom.remove && dom.remove();
   }
   $(`
   <div class="_sentence-content">
@@ -242,11 +246,14 @@ function initDom () {
 
 async function init () {
   await initData();
-  initDom();
-  initAudio();
-  refresh();
-  initTimer();
-  initEvent();
-
+  console.log(play,token,audio)
+  if (play) {
+    initDom();
+    initAudio();
+    changeUi();
+    refresh();
+    initTimer();
+    initEvent();
+  }
 }
 init();
