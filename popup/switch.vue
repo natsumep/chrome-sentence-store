@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style scoped>
-.cleck-lable {
+.check-label {
 	display: flex;
 	align-items: center;
 	cursor: pointer;

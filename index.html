@@ -1,5 +1,270 @@
-<html>
-  <body>
-    <h1>Hello Extensions</h1>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    ._sentence-content {
+      position: fixed;
+      border-radius: 10px;
+      width: 400px;
+      padding: 20px;
+      ;
+    }
+
+    ._sentence-content:hover {
+      background-color: rgba(0, 0, 0, .07);
+      box-shadow: 0 0 5px rgba(0, 0, 0, .07);
+      ;
+    }
+
+    ._sentence-content:hover ._sentence-btn-icon {
+      opacity: 1;
+      transition: all .5s;
+    }
+
+    ._sentence-content ._sentence-btn-icon {
+      cursor: move;
+      opacity: 0;
+      display: flex;
+    }
+
+    ._sentence-btn-do {
+      width: 100%;
+      flex: 11 auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    ._sentence-btn-colse {
+      flex: 0 0 auto;
+    }
+
+    ._sentence-icon {
+      cursor: pointer;
+    }
+
+    ._sentence-body {
+      cursor: copy;
+      text-align: center;
+      font-size: 24px;
+      padding: 5px;
+      margin: 5px 0;
+      text-shadow: 0.1em 0.1em 0.2em #1CD8D261;
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      background: #1CD8D2;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #93EDC7, #1CD8D2);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #93EDC7, #1CD8D2);
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="_sentence-content">
+    <div class="_sentence-btn-icon">
+      <div class="_sentence-btn-do">
+        <div style="display: flex;">
+          <div class="_sentence-icon " style="margin-right: 15px;;" data-icon-type="like" title="喜欢">
+            <img id="_sentenceIconLike" src="./images/like_btn_no.png" alt="" srcset="">
+          </div>
+          <div class="_sentence-icon " style="margin-right: 15px;;" data-icon-type="collce" title="收藏">
+            <img id="_sentenceIconCollce" src="./images/collce_btn_no.png" alt="" srcset="">
+          </div>
+          <div class="_sentence-icon " data-icon-type="refresh" title="刷新">
+            <img src="./images/refresh.png" alt="" srcset="">
+          </div>
+        </div>
+      </div>
+      <div class="_sentence-btn-colse _sentence-icon" data-icon-type="colse">
+        <svg t="1616311321276" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          p-id="2872" width="24" height="24">
+          <path
+            d="M646.4 327.7c-12.8 0-25.6 4.9-35.4 14.6L342.3 611c-19.4 19.4-19.4 51.3 0 70.7 9.7 9.7 22.5 14.6 35.4 14.6s25.6-4.9 35.4-14.6L681.7 413c19.4-19.4 19.4-51.3 0-70.7-9.7-9.7-22.5-14.6-35.3-14.6z"
+            fill="#7c44e2" p-id="2873"></path>
+          <path
+            d="M512 162c47.3 0 93.1 9.2 136.2 27.5 41.7 17.6 79.1 42.9 111.3 75 32.2 32.2 57.4 69.6 75 111.3C852.8 418.9 862 464.7 862 512s-9.2 93.1-27.5 136.2c-17.6 41.7-42.9 79.1-75 111.3-32.2 32.2-69.6 57.4-111.3 75C605.1 852.8 559.3 862 512 862s-93.1-9.2-136.2-27.5c-41.7-17.6-79.1-42.9-111.3-75-32.2-32.2-57.4-69.6-75-111.3C171.2 605.1 162 559.3 162 512s9.2-93.1 27.5-136.2c17.6-41.7 42.9-79.1 75-111.3 32.2-32.2 69.6-57.4 111.3-75C418.9 171.2 464.7 162 512 162m0-80C274.5 82 82 274.5 82 512s192.5 430 430 430 430-192.5 430-430S749.5 82 512 82z"
+            fill="#4a5fe2" p-id="2874"></path>
+          <path
+            d="M377.6 327.7c-12.8 0-25.6 4.9-35.4 14.6-19.4 19.4-19.4 51.3 0 70.7L611 681.7c9.7 9.7 22.5 14.6 35.4 14.6s25.6-4.9 35.4-14.6c19.4-19.4 19.4-51.3 0-70.7L413 342.3c-9.7-9.7-22.5-14.6-35.4-14.6z"
+            fill="#7c44e2" p-id="2875"></path>
+        </svg>
+      </div>
+    </div>
+    <div class="_sentence-body">
+    </div>
+    <div class="_sentence-author" style="text-align: center;color:#999">
+    </div>
+  </div>
+
+
+</body>
+<script src="./contentjs/jquery.1.12.4.js"></script>
+<script src="./contentjs/drag.js"></script>
+<script>
+  $(() => {
+    const token = getToken &&  getToken()|| "";
+    const audio = getAudio && getAudio()|| true;;
+    const play = getPlay && getPlay()|| true;;
+    // const token = "";
+    // const audio = true;;
+    // const play = true;;
+    let datainfo = {};
+    const height = $(window).height();
+    const width = $(window).width();
+
+    $("._sentence-content").draggabilly({
+      handle: '._sentence-btn-icon'
+    }).draggabilly("setPosition", width / 2 - 200, height - 180)
+    $("._sentence-icon").on("click", function () {
+      const type = $(this).attr("data-icon-type");
+      switch (type) {
+        case "colse":
+          close();
+          break;
+        case "refresh":
+          refresh();
+          break
+        case "like":
+          like()
+          break
+        case "collce":
+          collce()
+          break
+      }
+    })
+    function close() {
+      $("._sentence-content").hide();
+    }
+    function setSentenceVal(data, status) {
+      const { content, source, author } = data;
+      const { like, collce } = status;
+      // changeLikeIcon(like)
+      // changeCollceIcon(collce)
+      $("._sentence-body").text(content);
+      const authors = author ? `${author} · ${source}` : source;
+      if (audio) {
+        speck(content + " 来自：" + authors)
+      }
+      $("._sentence-author").text(authors);
+    }
+    function speck(val) {
+      speechSynthesis.cancel()
+      var msg = new SpeechSynthesisUtterance(val);
+      speechSynthesis.speak(msg);
+    }
+    function refresh() {
+      $.get('https://www.tinker.run/api/sentence').then(data => {
+        datainfo = data.body;
+        setSentenceVal(data.body, {});
+      })
+    }
+    function changeLikeIcon(isLike) {
+      let src = "./images/like_btn_no.png";;
+      if (isLike) {
+        src = "./images/like_btn.png";;
+      }
+      $("#_sentenceIconLike").attr("src", src).attr("data-val", isLike)
+    }
+
+    function changeCollceIcon(isCollce) {
+      let src = "./images/collce_btn_no.png";
+      if (isCollce) {
+        src = "./images/collce_btn.png";
+      }
+      $("#_sentenceIconCollce").attr("src", src).attr("data-val", isCollce)
+    }
+    function like() {
+      const id = datainfo.id;
+      const isLike = $("#_sentenceIconLike").attr("data-val");
+      if (isLike && !token || !id) return;
+      $.ajax(`https://www.tinker.run/api/sentence/${isLike ? 'unlike' : 'like'}/` + id, {
+        type:"post",
+        headers: {
+          'authorization': 'Bearer ' + token,
+        }
+      }).then(data => {
+        changeLikeIcon(!isLike)
+      })
+    }
+    function collce() {
+      const id = datainfo.id;
+      const isCollce = $("#_sentenceIconCollce").attr("data-val");
+      if (!id || !token) return
+      $.ajax(`https://www.tinker.run/api/sentence/${isCollce ? 'uncollce' : 'collce'}/` + id, {
+        type:"post",
+        headers: {
+          'authorization': 'Bearer ' + token,
+        }
+      }
+      ).then(data => {
+        changeCollceIcon(!isCollce)
+      })
+    }
+
+    function initEvent() {
+      chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+        const { type, value } = request
+        if (type === 'token') {
+          token = value;
+        } else if (type === 'audio') {
+          if (value) {
+            initTimer();
+          } else {
+            clearTimer();
+          }
+        } else if (type === 'play') {
+          if (value) {
+            $("._sentence-content").hide();
+          } else {
+            $("._sentence-content").show();
+          }
+        }
+      })
+    }
+
+
+    let timer = null;
+    function clearTimer() {
+      clearTimeout(timer)
+    }
+    function setTimer() {
+      clearTimer()
+      timer = setInterval(() => {
+        refresh()
+      }, 30000)
+    }
+    function initTimer() {
+      setTimer()
+    }
+
+    function init() {
+      refresh();
+      initTimer();
+    }
+    init();
+
+  })
+
+</script>
+
 </html>

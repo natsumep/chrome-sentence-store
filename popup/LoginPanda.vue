@@ -86,7 +86,7 @@ function obj2params(obj) {
 	}
 	return q;
 }
-
+import { setToken , getToken,cleanToken } from "./utils/storage"
 export default {
 	data: () => {
 		return {
@@ -142,7 +142,10 @@ export default {
 				}),
 			}).then((res) => {
 				res.json().then((data) => {
-					console.log(data);
+          const token = data.body.token;
+          const expiresIn = data.body.expiresIn;
+          setToken(token,expiresIn);
+          this.$emit('login',token);
 				});
 			});
 			// loginAjax(

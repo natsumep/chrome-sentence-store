@@ -1,21 +1,23 @@
 {
-  "name": "sentence store",
+  "name": "句子杂货铺",
   "description": "sentence store，can add can show can like",
   "version": "1.0",
   "manifest_version": 2,
   "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
   "browser_action": {
-    "default_popup": "index.html",
+    "default_popup": "./popup/dist/index.html",
     "default_icon": "logo.png"
   },
   "author":"pp",
   "background": {
-    "scripts": ["index.js"],
+    "scripts": ["utils/storage.js","background.js"],
     "persistent": false
   },
   "permissions": [
+    "storage", 
     "contextMenus"
   ],
+  "homepage_url": "https://www.tinker.run/api",
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
@@ -24,5 +26,16 @@
       },
       "description": "Opens index.html"
     }
-  }
+  },
+  "content_scripts": 
+	[
+		{
+		
+			"matches": ["<all_urls>"],
+			"js": ["contentjs/jquery.1.12.4.js","layer/layer.js","utils/storage.js","contentjs/drag.js","contentjs/index.js"],
+			"css": ["layer/theme/default/layer.css","contentcss/style.css"],
+			"run_at": "document_end"
+		}
+	]
+
 }
