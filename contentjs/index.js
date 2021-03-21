@@ -164,7 +164,6 @@ function initEvent () {
   })
 
   document.addEventListener('visibilitychange',async function(e){ //浏览器切换事件
-  console.log(e , document.visibilityState)
   if(document.visibilityState!=='visible') { //状态判断
     await initData();
     initAudio();
