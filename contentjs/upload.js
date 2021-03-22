@@ -8,45 +8,68 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 let vm = null;
 let type = [];
 // let token = null;
-async function loadType() {
+async function loadType () {
   const res = await $.get("https://www.tinker.run/api/sentence/type");
   type = res.body;
 }
 
-function initComponent() {
+async function initComponent () {
   if (!vm) {
+    await loadType()
     const app = document.createElement("div");
     app.id = "_sentence_app_div";
     document.body.appendChild(app);
     vm = new Vue({
       el: "#_sentence_app_div",
-      data() {
+      data () {
         return {
           visible: false,
           radio: "sentence",
+          type,
           form: {
             content: "",
             author: "",
             source: "",
+            typeId: "",
           },
         };
       },
       methods: {
-        handleHidden() {
+        handleHidden () {
           this.visible = false;
         },
-        onSubmit() {
+        hanldeDialogClose () {
+          this.form = {
+            content: "",
+            author: "",
+            source: "",
+            typeId: "",
+          }
+        },
+        onSubmit () {
           this.$refs.form.validate((valid) => {
             if (valid) {
               const type = this.radio;
               const url = `https://www.tinker.run/api/${type}/add`;
               const data = this.form;
+              const _this = this;
               $.ajax({
                 type: 'POST',
                 url,
                 data,
-                success: ()=>{
-
+                success: (data) => {
+                  const { status,msg } = data;
+                  if(status === 200){
+                    ELEMENT.Message.success("上传成功，么么哒~")
+                    _this.visible = false;
+                  }else if(status>=600){
+                    ELEMENT.Message.warning(msg || "上传失败~~")
+                  }else{
+                    ELEMENT.Message.warning("服务器异常，上传失败~~")
+                  }
+                },
+                error:()=>{
+                  console.log(this)
                 },
                 headers: {
                   authorization: "Bearer " + token,
@@ -71,15 +94,32 @@ function initComponent() {
             :modal="false" 
             :visible.sync="visible" 
             title="上传句子到杂货铺"
+            @close="hanldeDialogClose"
           >
-            <div style="margin-bottom:20px;">
-              <span style="width:80px;text-align: right;padding-right: 12px;display: inline-block;">上传类型</span> 
+            <div style="margin-bottom:20px;display:flex;">
+              <span style="width:80px;text-align: right;padding-right: 12px;display: inline-block;box-sizing: border-box;">上传类型</span> 
               <el-radio-group  v-model="radio">
                 <el-radio label="sentence">句子杂货铺</el-radio>
                 <el-radio label="caihong">彩虹屁🌈</el-radio>
               </el-radio-group>
             </div>
             <el-form ref="form" :model="form" label-width="80px">
+            <el-form-item 
+              :rules="[
+                { required: true, message: '请选择句子类型', trigger: ['blur', 'change'] }
+              ]"
+              v-if="radio==='sentence'" label="句子类型"
+              prop="typeId"
+            >
+            <el-select v-model="form.typeId" placeholder="请选择句子类型">
+              <el-option
+                v-for="item in type"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
+            </el-form-item>
             <el-form-item 
               :rules="[
                 { required: true, message: '请输入句子作者', trigger: ['blur', 'change'] }
@@ -126,14 +166,14 @@ function initComponent() {
   }
 }
 
-function show(val) {
+async function  show (val) {
   if (!token) {
     ELEMENT.Message.warning(
       "请点击右上角句子杂货铺登录后才可以上传哟~ 么么哒~"
     );
     return;
   }
-  initComponent();
+  await initComponent();
   vm.$data.form.content = val;
   vm.$data.visible = true;
 }
