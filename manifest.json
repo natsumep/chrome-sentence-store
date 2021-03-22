@@ -8,15 +8,12 @@
     "default_popup": "./popup/dist/index.html",
     "default_icon": "logo.png"
   },
-  "author":"pp",
+  "author": "pp",
   "background": {
-    "scripts": ["utils/storage.js","background.js"],
+    "scripts": ["utils/storage.js", "background.js"],
     "persistent": false
   },
-  "permissions": [
-    "storage", 
-    "contextMenus"
-  ],
+  "permissions": ["storage", "contextMenus"],
   "homepage_url": "https://www.tinker.run/api",
   "commands": {
     "_execute_browser_action": {
@@ -27,15 +24,20 @@
       "description": "Opens index.html"
     }
   },
-  "content_scripts": 
-	[
-		{
-		
-			"matches": ["<all_urls>"],
-			"js": ["contentjs/jquery.1.12.4.js","layer/layer.js","utils/storage.js","contentjs/drag.js","contentjs/index.js"],
-			"css": ["layer/theme/default/layer.css","contentcss/style.css"],
-			"run_at": "document_end"
-		}
-	]
-
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "contentjs/jquery.1.12.4.js",
+        "utils/storage.js",
+        "contentjs/vue.js",
+        "contentjs/element.js",
+        "contentjs/drag.js",
+        "contentjs/index.js",
+        "contentjs/upload.js"
+      ],
+      "css": ["contentcss/style.css"],
+      "run_at": "document_end"
+    }
+  ]
 }

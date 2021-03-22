@@ -114,26 +114,26 @@ export default {
     }, 100);
   },
   methods: {
-    handleExit() {
-      cleanToken();
+    async handleExit() {
+      await cleanToken();
       this.$emit("change");
     },
     async getUserinfo() {
       this.isLoading = true;
-      const url = "http://127.0.0.1:8088/api/user?edit=true";
+      const url = "https://www.tinker.run/api/user?edit=true";
       const data = await api(url, this.token);
       this.isLoading = false;
       this.userinfo = data;
       this.profile = data.profile;
     },
     async getSentenceInfo() {
-      const url = "http://127.0.0.1:8088/api/sentence/info";
+      const url = "https://www.tinker.run/api/sentence/info";
       const data = await api(url, this.token);
       console.log(data);
       this.sentence = data;
     },
     async getCaihongInfo() {
-      const url = "http://127.0.0.1:8088/api/caihong/info";
+      const url = "https://www.tinker.run/api/caihong/info";
       const data = await api(url, this.token);
       console.log(data);
       this.caihong = data;

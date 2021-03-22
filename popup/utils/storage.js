@@ -12,7 +12,7 @@ export async function getToken () {
   }
 }
 export async function cleanToken () {
-  await clearStorage("token");
+  await clearStorage({token:null,expiresIn:0});
 }
 
 export function setStorage (obj) {
@@ -29,9 +29,9 @@ export function getStorage (obj) {
     });
   });
 }
-export function clearStorage (key) {
+export function clearStorage (obj) {
   return new Promise((a) => {
-    chrome.storage.sync.set({ key: null }, function (items) {
+    chrome.storage.sync.set(obj, function (items) {
       a();
     });
   });

@@ -12,16 +12,25 @@ async function getToken () {
 
 function setStorage (obj) {
   return new Promise((a) => {
-    chrome.storage.sync.set(obj, function () {
-      a();
-    });
+    try{
+      chrome.storage.sync.set(obj, function () {
+        a();
+      });
+    }catch(e){
+      console.error(e)
+    }
+  
   });
 }
 function getStorage (obj) {
   return new Promise((a) => {
-    chrome.storage.sync.get(obj, function (items) {
-      a(items);
-    });
+    try{
+      chrome.storage.sync.get(obj, function (items) {
+        a(items);
+      });
+    }catch(e){
+      console.error(e)
+    }
   });
 }
 function clearStorage (key) {
