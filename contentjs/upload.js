@@ -121,9 +121,6 @@ async function initComponent () {
             </el-select>
             </el-form-item>
             <el-form-item 
-              :rules="[
-                { required: true, message: '请输入句子作者', trigger: ['blur', 'change'] }
-              ]"
               v-if="radio==='sentence'" label="句子作者"
               prop="author"
             >

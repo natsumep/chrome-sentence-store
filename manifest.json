@@ -36,7 +36,7 @@
         "contentjs/index.js",
         "contentjs/upload.js"
       ],
-      "css": ["contentcss/style.css"],
+      "css": ["contentcss/style.css","contentcss/element.css"],
       "run_at": "document_end"
     }
   ]
