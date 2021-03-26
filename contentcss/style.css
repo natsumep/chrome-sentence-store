@@ -101,3 +101,7 @@
 ._sentent-dialog .el-icon-close::before {
   content: "X";
 }
+
+._sentent-dialog .el-radio.is-bordered {
+  margin:10px;
+}

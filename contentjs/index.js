@@ -149,6 +149,13 @@ function initEvent() {
       case "collce":
         collce();
         break;
+      case "report":
+        showReport({
+          sententce:datainfo.content,
+          sententceId:datainfo.id,
+          sententceType:caihong?"caihong":"sentence"
+        })
+        break
     }
   });
 

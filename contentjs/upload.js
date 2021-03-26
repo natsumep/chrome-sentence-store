@@ -33,6 +33,15 @@ async function initComponent () {
             source: "",
             typeId: "",
           },
+          formReport:{
+            type:"",
+            content:"",
+
+          },
+          sententce:"",
+          sententceId:"",
+          sententceType:"",
+          visibleReport: false,
         };
       },
       methods: {
@@ -46,6 +55,55 @@ async function initComponent () {
             source: "",
             typeId: "",
           }
+        },
+        onSubmitReport(){
+          this.$refs.formReport.validate((valid) => {
+            if (valid) {
+              const type = this.sententceType;
+              // const url = `https://www.tinker.run/api/${type}/add`;
+              const url = `http://127.0.0.1:8088/api/${type}/report`;
+              const data = this.formReport;
+              data.sententceType = this.sententceType;
+              data.sententceId = this.sententceId;
+              console.log(data);
+              return 
+              const _this = this;
+              $.ajax({
+                type: 'POST',
+                url,
+                data,
+                success: (data) => {
+                  const { status,msg } = data;
+                  if(status === 200){
+                    ELEMENT.Message.success("上传成功，么么哒~")
+                  }else if(status>=600){
+                    ELEMENT.Message.warning(msg || "上传失败~~")
+                  }else{
+                    ELEMENT.Message.warning("服务器异常，上传失败~~")
+                  }
+                },
+                error:()=>{
+                  console.log(this)
+                },
+                headers: {
+                  authorization: "Bearer " + token,
+                  [`content-type`]: `application/x-www-form-urlencoded`
+                },
+              });
+            } else {
+              return false;
+            }
+          });
+        },
+        hanldeDialogReportClose(){
+          this.formReport = {
+            type:"",
+            content:"",
+
+          }
+        },
+        handleHiddenReport(){
+          this.visibleReport= false;
         },
         onSubmit () {
           this.$refs.form.validate((valid) => {
@@ -159,11 +217,67 @@ async function initComponent () {
             </el-form-item>
            </el-form>
           </el-dialog>
+          <el-dialog  
+            width="28%" 
+            :close-on-click-modal="false" 
+            :close-on-press-escape="false"
+            :lock-scroll='false' 
+            :modal-append-to-body="false" 
+            :fullscreen='false' 
+            :modal="false" 
+            :visible.sync="visibleReport" 
+            title="审核当前句子"
+            @close="hanldeDialogReportClose"
+          >
+            <div style="margin-bottom:15px;"><span style="width:80px;text-align: right;padding-right: 12px;display: inline-block;box-sizing: border-box;">句子内容</span>  {{sententce}} </div>
+            <el-form ref="formReport" :model="formReport" label-width="80px">
+            <el-form-item 
+              :rules="[
+                { required: true, message: '请选择审核类型', trigger: ['blur', 'change'] }
+              ]"
+               label="审核类型"
+              prop="type"
+            >
+            <div>
+              <el-radio v-model="formReport.type" label="谩骂攻击" border>谩骂攻击</el-radio>
+              <el-radio v-model="formReport.type" label="反动违法" border>反动违法</el-radio>
+              <el-radio v-model="formReport.type" label="色情低俗" border>色情低俗</el-radio>
+              <el-radio v-model="formReport.type" label="营销广告" border>营销广告</el-radio>
+              <el-radio v-model="formReport.type" label="作者不对" border>作者不对</el-radio>
+              <el-radio v-model="formReport.type" label="来源不对" border>来源不对</el-radio>
+              <el-radio v-model="formReport.type" label="类型不对" border>类型不对</el-radio>
+              <el-radio v-model="formReport.type" label="其他" border>其他</el-radio>
+            </div>
+            </el-form-item>
+            <el-form-item 
+              prop="content"
+              label="审核内容" 
+            >
+              <el-input 
+                v-model="formReport.content"
+                type="textarea"
+                show-word-limit
+                placeholder="请输入审核内容"
+                :autosize="{ minRows: 3, maxRows: 8 }"
+                maxlength="150"
+                prop="content"
+              ></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="onSubmitReport">提交</el-button>
+              <el-button @click="handleHiddenReport">取消</el-button>
+            </el-form-item>
+           </el-form>
+          </el-dialog>
+
         </div>`,
     });
-    $(document.querySelector("._sentent-dialog .el-dialog")).draggabilly({
-      handle: ".el-dialog__header",
-    });
+    document.querySelectorAll("._sentent-dialog .el-dialog").forEach(function(item){
+      $(item).draggabilly({
+        handle: ".el-dialog__header",
+      });
+    })
+   
   }
 }
 
@@ -177,4 +291,19 @@ async function  show (val) {
   await initComponent();
   vm.$data.form.content = val;
   vm.$data.visible = true;
+}
+
+async function showReport(option){
+  if (!token) {
+    ELEMENT.Message.warning(
+      "请点击右上角句子杂货铺登录后才可以上传争议内容哟~ 么么哒~"
+    );
+    return;
+  }
+  await initComponent();
+  const { sententce,sententceId,sententceType} = option;
+  vm.$data.sententce = sententce;
+  vm.$data.sententceId = sententceId;
+  vm.$data.sententceType = sententceType;
+  vm.$data.visibleReport = true;
 }
