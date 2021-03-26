@@ -83,7 +83,9 @@
 ._sentent-dialog .el-dialog__wrapper{
   pointer-events: none;
 }
-
+._sentent-dialog{
+  text-align: left;
+}
 
 ._sentent-dialog .el-dialog{
   pointer-events: all;

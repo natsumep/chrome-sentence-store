@@ -1,6 +1,7 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   const { type, info, tab } = request;
   if (type === "upload") {
+    console.log("收到上传消息")
     show(info.selectionText);
     sendResponse("我是后台，我已收到你的消息：" + JSON.stringify(request));
   }
@@ -50,7 +51,9 @@ async function initComponent () {
           this.$refs.form.validate((valid) => {
             if (valid) {
               const type = this.radio;
-              const url = `https://www.tinker.run/api/${type}/add`;
+              // const url = `https://www.tinker.run/api/${type}/add`;
+              const url = `http://127.0.0.1:8088/api/${type}/add`;
+
               const data = this.form;
               const _this = this;
               $.ajax({
@@ -61,7 +64,6 @@ async function initComponent () {
                   const { status,msg } = data;
                   if(status === 200){
                     ELEMENT.Message.success("上传成功，么么哒~")
-                    _this.visible = false;
                   }else if(status>=600){
                     ELEMENT.Message.warning(msg || "上传失败~~")
                   }else{
@@ -93,6 +95,7 @@ async function initComponent () {
             :fullscreen='false' 
             :modal="false" 
             :visible.sync="visible" 
+            :center="false"
             title="上传句子到杂货铺"
             @close="hanldeDialogClose"
           >
@@ -124,7 +127,7 @@ async function initComponent () {
               v-if="radio==='sentence'" label="句子作者"
               prop="author"
             >
-              <el-input placeholder="请输入句子作者" v-model="form.author" maxlength="50" ></el-input>
+              <el-input placeholder="请输入句子作者" v-model="form.author" show-word-limit maxlength="50" ></el-input>
             </el-form-item>
             <el-form-item v-if="radio==='sentence'"
               prop="source"
@@ -133,7 +136,7 @@ async function initComponent () {
               ]"
               label="句子出处"
             >
-              <el-input placeholder="请输入句子出处" v-model="form.source" maxlength="50" prop="source" ></el-input>
+              <el-input placeholder="请输入句子出处" v-model="form.source" show-word-limit maxlength="50" prop="source" ></el-input>
             </el-form-item>
             <el-form-item 
               prop="content"
@@ -143,6 +146,7 @@ async function initComponent () {
               <el-input 
                 v-model="form.content"
                 type="textarea"
+                show-word-limit
                 placeholder="请输入句子内容"
                 :autosize="{ minRows: 3, maxRows: 8 }"
                 maxlength="150"
