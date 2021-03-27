@@ -68,8 +68,7 @@ async function initComponent () {
               // const url = `https://www.tinker.run/api/${type}/add`;
               const url = `http://127.0.0.1:8088/api/${type}/report`;
               const data = this.formReport;
-              data.sententceType = this.sententceType;
-              data.sententceId = this.sententceId;
+              data.id = this.sententceId;
               console.log(data);
               return 
               const _this = this;
@@ -231,7 +230,8 @@ async function initComponent () {
             title="审核当前句子"
             @close="hanldeDialogReportClose"
           >
-            <div style="margin-bottom:15px;"><span style="width:100px;text-align: right;padding-right: 12px;display: inline-block;box-sizing: border-box;">句子内容</span>  {{sententce}} </div>
+            <div style="margin-bottom:15px;"><span style="width:100px;text-align: right;padding-right: 12px;display: inline-block;box-sizing: border-box;">句子内容</span> 
+            <span style="font-size:15px;font-weight:500"> {{sententce}} </span></div>
             <el-form ref="formReport" :model="formReport" label-width="100px">
             <el-form-item 
               :rules="[
