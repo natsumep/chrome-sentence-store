@@ -10,8 +10,13 @@ let vm = null;
 let type = [];
 // let token = null;
 async function loadType () {
-  const res = await $.get("https://www.tinker.run/api/sentence/type");
-  type = res.body;
+  let res = [];
+  try{
+    const res = await $.get("https://www.tinker.run/api/sentence/type");
+    type = res.body;
+  }catch(e){
+    type =[{"id":1,"name":"原创"},{"id":2,"name":"诗词"},{"id":3,"name":"影视"},{"id":4,"name":"动画"},{"id":5,"name":"漫画"},{"id":6,"name":"游戏"},{"id":7,"name":"文学"},{"id":8,"name":"网络"},{"id":9,"name":"网易云"},{"id":10,"name":"哲学"},{"id":11,"name":"歌词"},{"id":100,"name":"其他"}]
+  }
 }
 
 async function initComponent () {
