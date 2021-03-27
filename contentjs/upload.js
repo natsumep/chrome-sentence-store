@@ -70,7 +70,6 @@ async function initComponent () {
               const data = this.formReport;
               data.id = this.sententceId;
               console.log(data);
-              return 
               const _this = this;
               $.ajax({
                 type: 'POST',
@@ -79,11 +78,11 @@ async function initComponent () {
                 success: (data) => {
                   const { status,msg } = data;
                   if(status === 200){
-                    ELEMENT.Message.success("上传成功，么么哒~")
+                    ELEMENT.Message.success("上传审核数据成功~~，如果你也想要参与到审核中来，快前往官方页面申请吧")
                   }else if(status>=600){
-                    ELEMENT.Message.warning(msg || "上传失败~~")
+                    ELEMENT.Message.warning(msg || "上传审核数据失败~~")
                   }else{
-                    ELEMENT.Message.warning("服务器异常，上传失败~~")
+                    ELEMENT.Message.warning("服务器异常，上传审核数据失败~~")
                   }
                 },
                 error:()=>{
