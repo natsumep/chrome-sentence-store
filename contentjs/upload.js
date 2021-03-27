@@ -150,7 +150,7 @@ async function initComponent () {
       template: `
         <div class="_sentent-dialog">
           <el-dialog  
-            width="28%" 
+            width="30%" 
             :close-on-click-modal="false" 
             :close-on-press-escape="false"
             :lock-scroll='false' 
@@ -163,13 +163,13 @@ async function initComponent () {
             @close="hanldeDialogClose"
           >
             <div style="margin-bottom:20px;display:flex;">
-              <span style="width:80px;text-align: right;padding-right: 12px;display: inline-block;box-sizing: border-box;">上传类型</span> 
+              <span style="width:100px;text-align: right;padding-right: 12px;display: inline-block;box-sizing: border-box;">上传类型</span> 
               <el-radio-group  v-model="radio">
                 <el-radio label="sentence">句子杂货铺</el-radio>
                 <el-radio label="caihong">彩虹屁🌈</el-radio>
               </el-radio-group>
             </div>
-            <el-form ref="form" :model="form" label-width="80px">
+            <el-form ref="form" :model="form" label-width="100px">
             <el-form-item 
               :rules="[
                 { required: true, message: '请选择句子类型', trigger: ['blur', 'change'] }
@@ -190,16 +190,13 @@ async function initComponent () {
               v-if="radio==='sentence'" label="句子作者"
               prop="author"
             >
-              <el-input placeholder="请输入句子作者" v-model="form.author" show-word-limit maxlength="50" ></el-input>
+              <el-input placeholder="请输入句子作者,据不完全统计，存在句子作者更有利于通过审核" v-model="form.author" show-word-limit maxlength="50" ></el-input>
             </el-form-item>
             <el-form-item v-if="radio==='sentence'"
               prop="source"
-              :rules="[
-                { required: true, message: '请输入句子出处', trigger: ['blur', 'change'] }
-              ]"
               label="句子出处"
             >
-              <el-input placeholder="请输入句子出处" v-model="form.source" show-word-limit maxlength="50" prop="source" ></el-input>
+              <el-input placeholder="请输入句子出处,据不完全统计，存在句子出处更有利于通过审核" v-model="form.source" show-word-limit maxlength="50" prop="source" ></el-input>
             </el-form-item>
             <el-form-item 
               prop="content"
@@ -234,8 +231,8 @@ async function initComponent () {
             title="审核当前句子"
             @close="hanldeDialogReportClose"
           >
-            <div style="margin-bottom:15px;"><span style="width:80px;text-align: right;padding-right: 12px;display: inline-block;box-sizing: border-box;">句子内容</span>  {{sententce}} </div>
-            <el-form ref="formReport" :model="formReport" label-width="80px">
+            <div style="margin-bottom:15px;"><span style="width:100px;text-align: right;padding-right: 12px;display: inline-block;box-sizing: border-box;">句子内容</span>  {{sententce}} </div>
+            <el-form ref="formReport" :model="formReport" label-width="100px">
             <el-form-item 
               :rules="[
                 { required: true, message: '请选择审核类型', trigger: ['blur', 'change'] }
