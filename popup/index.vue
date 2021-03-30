@@ -32,6 +32,12 @@
       :token="token"
       @change="changeLogin(null)"
     ></UserInfo>
+	
+	<div style="text-align: center;
+    color: #2196f3;
+    padding:0px 10px 10px 10px;
+    cursor: pointer;" @click="toSign" > 点击前往句子杂货铺官网 </div>
+
   </div>
 </template>
 
@@ -83,6 +89,9 @@ export default {
 				await cleanToken(token);
 			}
 			getBgView().initLogoText();
+		},
+		toSign() {
+			globalThis.chrome.tabs.create({ url: "https://www.tinker.run/sentence" });
 		},
 	},
 };

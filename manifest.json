@@ -1,7 +1,7 @@
 {
   "name": "句子杂货铺",
-  "description": "sentence store，can add can show can like",
-  "version": "1.0",
+  "description": "句子杂货铺：可以上传、查看句子和彩虹屁🌈。希望你能喜欢它~",
+  "version": "1.0.1",
   "manifest_version": 2,
   "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
   "browser_action": {
