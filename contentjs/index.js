@@ -174,7 +174,6 @@ function initEvent() {
     } else if (type === "play") {
       play = value;
       changeUi();
-      initTimer();
       sendResponse(true);
     } else if (type === "caihong") {
       caihong = value;
@@ -186,11 +185,10 @@ function initEvent() {
 
   document.addEventListener("visibilitychange", async function (e) {
     //浏览器切换事件
-    if (document.visibilityState !== "visible") {
+    if (document.visibilityState === "visible") {
       //状态判断
       await initData();
       changeUi();
-      initTimer();
     } else {
       clearTimer();
     }
