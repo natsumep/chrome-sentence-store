@@ -11,7 +11,7 @@
   "author": "pp",
   "background": {
     "scripts": ["utils/storage.js", "background.js"],
-    "persistent": false
+    "persistent": true
   },
   "permissions": ["storage", "contextMenus"],
   "homepage_url": "https://www.tinker.run/api",

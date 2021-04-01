@@ -65,8 +65,7 @@ async function initComponent () {
           this.$refs.formReport.validate((valid) => {
             if (valid) {
               const type = this.sententceType;
-              // const url = `https://www.tinker.run/api/${type}/add`;
-              const url = `http://127.0.0.1:8088/api/${type}/report`;
+              const url = `https://www.tinker.run/api/${type}/add`;
               const data = this.formReport;
               data.id = this.sententceId;
               console.log(data);
@@ -112,9 +111,7 @@ async function initComponent () {
           this.$refs.form.validate((valid) => {
             if (valid) {
               const type = this.radio;
-              // const url = `https://www.tinker.run/api/${type}/add`;
-              const url = `http://127.0.0.1:8088/api/${type}/add`;
-
+              const url = `https://www.tinker.run/api/${type}/add`;
               const data = this.form;
               const _this = this;
               $.ajax({
