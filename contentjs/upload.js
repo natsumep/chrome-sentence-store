@@ -65,7 +65,7 @@ async function initComponent () {
           this.$refs.formReport.validate((valid) => {
             if (valid) {
               const type = this.sententceType;
-              const url = `https://www.tinker.run/api/${type}/add`;
+              const url = `https://www.tinker.run/api/${type}/report`;
               const data = this.formReport;
               data.id = this.sententceId;
               console.log(data);
