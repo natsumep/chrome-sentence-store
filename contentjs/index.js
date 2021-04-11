@@ -340,7 +340,7 @@ async function init() {
   await initData();
   await initDom();
   changeUi();
-  refresh();
+  play && refresh();
   initTimer();
   initEvent();
 }
