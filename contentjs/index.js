@@ -37,7 +37,7 @@ function speck(val) {
   isClick && speechSynthesis.speak(msg);
 }
 function refresh() {
-  $.get(getUrl(),{form:'chromeplug'}).then((data) => {
+  $.get(getUrl(),{from:'chromeplug'}).then((data) => {
     datainfo = data.body;
     setSentenceVal(data.body, {});
   });
