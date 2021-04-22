@@ -173,6 +173,9 @@ function initEvent() {
       sendResponse(true);
     } else if (type === "play") {
       play = value;
+      if(play){
+        refresh()
+      }
       changeUi();
       sendResponse(true);
     } else if (type === "caihong") {
